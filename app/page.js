@@ -34,17 +34,31 @@ export default function Home() {
       />
       
         {query.length >= 3 && searchResults !== [] ? (
-          <div className='w-auto h-[20rem] overflow-y-scroll overflow-x-hidden border-4 border-black p-4'>
+          <div className='w-auto min-w-[20rem] min-h-[5rem] max-h-[20rem] overflow-y-scroll overflow-x-hidden border-2 rounded mt-2 border-black p-4'>
             {searchResults.map((result) => (
-              <div key={result.item?.index}>
-                <p>{result.item.name}</p>
-              </div>
+              <Wildshape key={result.item.key} wildshape={result.item} />
             ))}
           </div>
         ) : query.length >= 3 && searchResults == [] ? (
           <p>No results</p>
         ) : null}
   
+    </div>
+  )
+}
+
+function Wildshape({ wildshape }) {
+  const { name, url } = wildshape;
+
+  async function handleClick() {
+    const response = await fetch(`/api/wildshape/details?wildshape=${url}`);
+    const json = response.json();
+    const res = await json;
+    console.log(res);
+  }
+  return (
+    <div onClick={handleClick} className='hover:bg-black hover:text-white p-2 rounded hover:cursor-pointer'>
+      <p>{name}</p>
     </div>
   )
 }

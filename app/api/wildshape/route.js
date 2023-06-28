@@ -21,10 +21,15 @@ export async function GET(request) {
         ],
         limit: 2,
         threshold: 0.5
-        }
+    }
 
     const fuse = new Fuse(wildshapes, options)
     const { searchParams } = new URL(request.url)
+
+    if (!searchParams.has('q')) {
+        return NextResponse.redirect('/')
+    }
+    
     const results = fuse.search(searchParams.get('q'))
 
     return NextResponse.json(results)
