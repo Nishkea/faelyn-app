@@ -1,7 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { DetailedView } from './detailedview'
 
-export default function Home() {
+export default function FaelynWildshape() {
   const [query, updateQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [shape, setShape] = useState(null);
@@ -22,9 +23,9 @@ export default function Home() {
   }, [query]);
 
   return (
-    <div className='w-screen h-screen flex justify-start gap-5'>
-        <div className='w-1/2 flex justify-center items-center flex-col border-r-2'>
-            <p className='font-bold text-lg mb-5'>Faelyn wildshape browser</p>
+    <div className='w-screen h-screen flex justify-start'>
+        <div className='w-1/2  flex justify-center items-center flex-col border-r-2 border-black'>
+            <p className='text-white font-bold text-lg mb-5'>Faelyn wildshape browser</p>
             <input
                 aria-label={'Search'}
                 className='rounded p-5 shadow-xl'
@@ -35,16 +36,16 @@ export default function Home() {
             />
       
             {query.length >= 3 && searchResults !== [] ? (
-            <div className='w-auto min-w-[20rem] min-h-[5rem] max-h-[20rem] overflow-y-scroll overflow-x-hidden border-2 rounded mt-2 border-black p-4'>
+            <div className='w-auto min-w-[20rem] min-h-[5rem] max-h-[20rem] overflow-y-scroll overflow-x-hidden rounded mt-2 bg-[#6887AC] p-4 shadow-xl'>
                 {searchResults.map((result) => (
                     <Wildshape {... { setShape }} key={result.item.key} wildshape={result.item} />
                 ))}
             </div>
             ) : query.length >= 3 && searchResults == [] ? (
-            <p>No results</p>
+                <p>No results</p>
             ) : null}
         </div>
-        <div className='w-1/2'>
+        <div className='w-1/2 p-5 overflow-scroll'>
             { shape && <DetailedView {...{ shape }} /> }
         </div>
     </div>
@@ -64,18 +65,6 @@ function Wildshape({ wildshape, setShape }) {
   return (
     <div onClick={handleClick} className='hover:bg-black hover:text-white p-2 rounded hover:cursor-pointer'>
         <p>{name}</p>
-    </div>
-  )
-}
-
-function DetailedView({ shape }) {
-  const { name, desc, image, hit_points } = shape
-  return (
-    <div className='justify-center items-center flex-col'>
-        <p className='font-bold text-lg mb-5'>{name}</p>
-        <p>{desc}</p>
-        <p>Hit points: {hit_points}</p>
-        {image && <img width="250px" src={`https://www.dnd5eapi.co${image}`} />}
     </div>
   )
 }
