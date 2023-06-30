@@ -45,7 +45,7 @@ export default function FaelynWildshape() {
                 <p>No results</p>
             ) : null}
         </div>
-        <div className='w-1/2 p-5 overflow-scroll'>
+        <div className='w-1/2 p-5 overflow-y-auto'>
             { shape && <DetailedView {...{ shape }} /> }
         </div>
     </div>
