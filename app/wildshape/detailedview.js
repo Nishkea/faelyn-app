@@ -26,7 +26,15 @@ export function DetailedView({ shape }) {
         charisma,
         challenge_rating,
         actions,
-        special_abilities
+        special_abilities,
+        damage_vulnerabilities,
+        damage_resistances,
+        damage_immunities,
+        condition_immunities,
+        senses,
+        proficiencies,
+        forms,
+
     } = shape
 
     function addWildshapeToCasino({ form }) {
@@ -58,7 +66,7 @@ export function DetailedView({ shape }) {
             <p className='text-lg font-bold p-2 bg-white rounded'>HP: {hit_points}</p>
             <h2 className='text-white text-xl font-medium'>Details</h2>
             <div className='w-full flex gap-2 justify-start items-start'>
-                <Basics {...{ challenge_rating, speed, armor_class, type, size, subtype, alignment, hit_dice, languages }} />
+                <Basics {...{ challenge_rating, speed, armor_class, type, size, subtype, alignment, hit_dice, languages, damage_vulnerabilities, damage_resistances, damage_immunities, condition_immunities, senses, proficiencies, forms }} />
                 <SkillMatrix {...{ strength, dexterity, constitution, intelligence, wisdom, charisma }} />
             </div>
             <h2 className='text-white text-xl font-medium'>Actions & special abilities</h2>
