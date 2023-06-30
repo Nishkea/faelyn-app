@@ -49,7 +49,7 @@ export function DetailedView({ shape }) {
         <div className='flex justify-start items-start flex-col gap-5'>
             <div className='flex items-start justify-center gap-2'>
                 <p className='font-bold text-2xl text-white'>{name}</p>
-                <div onClick={() => addWildshapeToCasino({ form: name })} className='bg-black text-white p-4 rounded-xl cursor-pointer'>Add to casino</div>
+     
                 {(type == 'beast' || type == 'elemental') && <div className='p-2 rounded text-sm text-white uppercase font-bold bg-green-400'>wildshapable</div> }
             </div>
 
@@ -65,6 +65,9 @@ export function DetailedView({ shape }) {
                 <Actions {...{ actions }} />
                 <SpecialAbilities {... {special_abilities }} />
             </div>
+            {(type == 'beast' || type == 'elemental') && 
+            <div onClick={() => addWildshapeToCasino({ form: name })} className='bg-black text-white p-4 rounded-xl cursor-pointer'>Add to casino</div>
+            }
         </div>
     )
 }
