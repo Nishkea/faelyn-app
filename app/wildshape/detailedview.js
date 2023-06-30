@@ -29,7 +29,11 @@ export function DetailedView({ shape }) {
     } = shape
   return (
     <div className='flex justify-start items-start flex-col gap-5'>
-        <p className='font-bold text-2xl text-white'>{name}</p>
+        <div className='flex items-start justify-center gap-2'>
+            <p className='font-bold text-2xl text-white'>{name}</p>
+            {(type == 'beast' || type == 'elemental') && <div className='p-2 rounded text-sm text-white uppercase font-bold bg-green-400'>wildshapable</div> }
+        </div>
+
         {desc && <p className='text-white'>{desc}</p>}
         <p className='text-lg font-bold p-2 bg-white rounded'>HP: {hit_points}</p>
         <h2 className='text-white text-xl font-medium'>Details</h2>
