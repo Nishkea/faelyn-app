@@ -6,6 +6,7 @@ import { SpecialAbilities } from './specialabilities'
 export function DetailedView({ shape }) {
     const {
         name,
+        index,
         desc,
         image,
         hit_points,
@@ -66,7 +67,7 @@ export function DetailedView({ shape }) {
                 <SpecialAbilities {... {special_abilities }} />
             </div>
             {(type == 'beast' || type == 'elemental') && 
-            <div onClick={() => addWildshapeToCasino({ form: name })} className='bg-black text-white p-4 rounded-xl cursor-pointer'>Add to casino</div>
+                <div onClick={() => addWildshapeToCasino({ form: index })} className='bg-black text-white p-4 rounded-xl cursor-pointer'>Add to casino</div>
             }
         </div>
     )
