@@ -5,6 +5,7 @@ import Fuse from 'fuse.js'
 export async function GET(request) {
     const options = {
         includeScore: true,
+        shouldSort: true,
         keys: [
             {
             name: 'index',

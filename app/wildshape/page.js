@@ -1,11 +1,13 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { DetailedView } from './detailedview'
 
 export default function FaelynWildshape() {
   const [query, updateQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
-  const [shape, setShape] = useState(null);
+  const [shape, setShape] = useState(null)
+  const router = useRouter()
 
   useEffect(() => {
     if (query.length >= 3) {
@@ -23,7 +25,10 @@ export default function FaelynWildshape() {
   }, [query]);
 
   return (
-    <div className='w-screen h-screen flex justify-start'>
+    <div className='w-screen h-screen flex justify-start relative'>
+      <div onClick={() => router.push('/')}  className='hover:scale-[1.05] duration-200 absolute top-5 left-5 cursor-pointer'>
+        <div className='bg-black text-white p-4 rounded-xl'>Back to menu</div>
+      </div>
         <div className='w-1/2  flex justify-center items-center flex-col border-r-2 border-black'>
             <p className='text-white font-bold text-lg mb-5'>Faelyn wildshape browser</p>
             <input
@@ -36,11 +41,11 @@ export default function FaelynWildshape() {
             />
       
             {query.length >= 3 && searchResults !== [] ? (
-            <div className='w-auto min-w-[20rem] min-h-[5rem] max-h-[20rem] overflow-y-scroll overflow-x-hidden rounded mt-2 bg-[#6887AC] p-4 shadow-xl'>
+            <ul className='w-auto min-w-[20rem] min-h-[5rem] max-h-[20rem] overflow-y-scroll overflow-x-hidden rounded mt-2 bg-[#6887AC] p-4 shadow-xl'>
                 {searchResults.map((result) => (
-                    <Wildshape {... { setShape }} key={result.item.key} wildshape={result.item} />
+                    <Wildshape key={result.item.index} {... { setShape }} wildshape={result.item} />
                 ))}
-            </div>
+            </ul>
             ) : query.length >= 3 && searchResults == [] ? (
                 <p>No results</p>
             ) : null}
@@ -52,8 +57,8 @@ export default function FaelynWildshape() {
   )
 }
 
-function Wildshape({ wildshape, setShape }) {
-  const { name, url } = wildshape;
+function Wildshape({ wildshape, setShape}) {
+  const { name, url } = wildshape
 
   async function handleClick() {
         setShape(null)
@@ -62,9 +67,10 @@ function Wildshape({ wildshape, setShape }) {
         const res = await json
         setShape(res)
   }
+
   return (
-    <div onClick={handleClick} className='hover:bg-black hover:text-white p-2 rounded hover:cursor-pointer'>
-        <p>{name}</p>
-    </div>
+    <li onClick={handleClick} className='hover:bg-black hover:text-white p-2 rounded hover:cursor-pointer'>
+      {name}
+    </li>
   )
 }
